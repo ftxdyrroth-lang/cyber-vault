@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILLUMINATI DATABASE - HZELL NODE</title>
+    <style>
+        /* CSS ULTRA CYBERPUNK DECORATED DASHBOARD */
+        body {
+            background-color: #05070a;
+            color: #c9d1d9;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 10px;
+        }
+        
+        /* LOCK SCREEN PANEL */
+        .login-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #020305;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-box {
+            background: #0d1117;
+            border: 2px solid #ff3333;
+            box-shadow: 0 0 30px rgba(255, 51, 51, 0.4);
+            border-radius: 8px;
+            padding: 30px;
+            width: 85%;
+            max-width: 300px;
+            text-align: center;
+        }
+        .login-box h2 { color: #ff3333; margin: 0 0 20px 0; font-size: 16px; letter-spacing: 3px; }
+        .login-box input {
+            width: 90%; padding: 12px; margin-bottom: 15px;
+            background: #05070a; border: 1px solid #ff3333;
+            color: #ff3333; border-radius: 4px; text-align: center; font-weight: bold;
+        }
+        .login-btn { background: #ff3333; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; letter-spacing: 2px; }
+        
+        /* MAIN SYSTEM */
+        .main-content { display: none; max-width: 450px; margin: 0 auto; }
+        
+        .header { 
+            border: 1px dashed #ff3333; 
+            background: rgba(255, 51, 51, 0.05);
+            padding: 15px 10px; 
+            margin-bottom: 15px; 
+            text-align: center;
+            border-radius: 6px;
+        }
+        .header h1 { color: #ffffff; text-shadow: 0 0 8px #ff3333; margin: 0; font-size: 18px; letter-spacing: 1px; }
+        .header p { color: #ff3333; font-size: 10px; margin: 5px 0 0; font-weight: bold; }
+        
+        /* HIASAN PANEL STATISTIK (DASHBOARD GRID) */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .stat-box {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-left: 3px solid #ff3333;
+            padding: 10px;
+            text-align: left;
+            border-radius: 4px;
+        }
+        .stat-box .title { font-size: 9px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-box .value { font-size: 13px; color: #fff; font-weight: bold; margin-top: 5px; }
+
+        .status-bar { 
+            background: #12161a; border: 1px solid #30363d; border-radius: 4px; 
+            padding: 8px; display: flex; justify-content: space-around; font-size: 10px; margin-bottom: 15px; 
+        }
+        
+        /* TABS NAVIGASI */
+        .tab-container { display: flex; justify-content: center; gap: 5px; margin-bottom: 15px; }
+        .tab-btn { 
+            background: #0d1117; color: #8b949e; border: 1px solid #21262d; 
+            padding: 10px 5px; font-size: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; flex: 1;
+        }
+        .tab-btn.active { background: #ff3333; color: #fff; border-color: #ff3333; box-shadow: 0 0 10px rgba(255, 51, 51, 0.3); }
+        
+        /* DATA ARCHIVE DISPLAY */
+        .archive-box {
+            background: #0d1117;
+            border: 1px solid #ff3333;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        .archive-box::before {
+            content: "SECURE DATA NODE";
+            position: absolute; top: -8px; right: 15px;
+            background: #ff3333; color: #fff; font-size: 8px;
+            padding: 2px 5px; font-weight: bold; border-radius: 3px;
+        }
+        .archive-box h2 { margin: 0 0 5px 0; font-size: 18px; color: #fff; }
+        .meta-line { font-size: 10px; color: #ff3333; margin-bottom: 12px; font-weight: bold; }
+        .file-summary { font-size: 12px; line-height: 1.6; color: #c9d1d9; margin-bottom: 15px; border-top: 1px solid #21262d; padding-top: 10px; }
+        
+        .trigger-btn {
+            background: #ff3333; color: #fff; border: none; padding: 12px;
+            width: 100%; font-weight: bold; font-size: 11px; letter-spacing: 1px;
+            border-radius: 4px; cursor: pointer; box-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
+        }
+        .trigger-btn:hover { background: #cc0000; box-shadow: 0 0 15px rgba(255, 51, 51, 0.5); }
+
+        /* JENDELA POP-UP DECRYPT CHRONOLOGY */
+        .modal {
+            display: none; position: fixed; z-index: 99999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.95);
+        }
+        .modal-content {
+            background-color: #05070a;
+            margin: 8% auto; padding: 20px;
+            border: 2px solid #ff3333; width: 85%; max-width: 380px;
+            border-radius: 8px; text-align: left;
+            box-shadow: 0 0 30px rgba(255, 51, 51, 0.4);
+        }
+        .close-btn { color: #ff3333; float: right; font-size: 24px; font-weight: bold; cursor: pointer; line-height: 20px; }
+        .modal h3 { color: #fff; background: #ff3333; margin: 0 0 15px 0; font-size: 13px; padding: 5px; text-align: center; letter-spacing: 1px; }
+        .modal-body { font-size: 12px; line-height: 1.6; color: #c9d1d9; max-height: 280px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+
+    <!-- LOCK SCREEN SCREEN -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <h2>🔒 SYSTEM MALWARE</h2>
+            <input type="text" id="usernameInput" placeholder="AGENT ID">
+            <input type="password" id="passwordInput" placeholder="ACCESS KEY">
+            <button class="login-btn" onclick="checkAuth()">BYPASS PROTOCOL</button>
+            <p id="errorMsg" style="color: #ff3333; font-size: 10px; margin-top: 10px; display: none; font-weight: bold;">⚠️ ACCESS DENIED: TRACE DETECTED</p>
+        </div>
+    </div>
+
+    <!-- MAIN SYSTEM GATEWAY -->
+    <div id="mainWeb" class="main-content">
+        <div class="header">
+            <h1>⚡ CORESYNC: HIP-HOP DECLASSIFIED ⚡</h1>
+            <p>MAIN OPERATIONAL STORAGE // NODE: INTERPOL-PEKALONGAN</p>
+        </div>
+
+        <!-- HIASAN BARU: DASHBOARD GRID MONITOR AUDIO & STORAGE -->
+        <div class="dashboard-grid">
+            <div class="stat-box">
+                <div class="title">📡 SERVER NODE</div>
+                <div class="value" style="color: #238636;">SECURE // LIVE</div>
+            </div>
+            <div class="stat-box">
+                <div class="title">🔐 ENCRYPTION</div>
+                <div class="value" style="color: #f78166;">AES-256 LAYER</div>
+            </div>
+            <div class="stat-box">
+                <div class="title">💾 DATA LEAKED</div>
+                <div class="value" style="color: #ff3333;">1.42 TERABYTE</div>
+            </div>
+            <div class="stat-box">
+                <div class="title">📊 OVERSEER RATIO</div>
+                <div class="value" id="live-speed" style="color: #79c0ff;">98.24% SYNC</div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div>OPERATOR: <span style="color:#ff3333;">Hzell</span></div>
+            <div>STATION: <span style="color:#ff3333;">PKL-X09</span></div>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="switchCase('x', this)">XXXTENTACION</button>
+            <button class="tab-btn" onclick="switchCase('2pac', this)">2PAC SHAKUR</button>
+            <button class="tab-btn" onclick="switchCase('biggie', this)">NOTORIOUS B.I.G</button>
+        </div>
+
+        <div class="archive-box">
+            <h2 id="artist-name">Jahseh Dwayne Onfroy (X)</h2>
+            <div class="meta-line" id="artist-meta">STATUS: SOLVED BY FORCE | JUN 18, 2018</div>
+            <div class="file-summary" id="artist-text">
+                Kasus penembakan tragis di depan toko motor Deerfield Beach. Konspirasi menyebutkan X dibungkam karena ingin membongkar rahasia elit industri musik lewat album-album spiritualnya.
+            </div>
+            <button class="trigger-btn" onclick="openChronology()">🔓 DECRYPT CHRONOLOGY DATA</button>
+        </div>
+    </div>
+
+    <!-- WINDOW POP-UP CHRONOLOGY -->
+    <div id="chronoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeChronology()">&times;</span>
+            <h3 id="modal-title">CRITICAL CHRONOLOGY DOSSIER</h3>
+            <div class="modal-body" id="modal-text">Loading encrypted text...</div>
+        </div>
+    </div>
+
+    <script>
+        // System Login Authentication
+        function checkAuth() {
+            var user = document.getElementById("usernameInput").value;
+            var pass = document.getElementById("passwordInput").value;
+            if (user === "admin" && pass === "admin123") {
+                document.getElementById("loginScreen").style.display = "none";
+                document.getElementById("mainWeb").style.display = "block";
+                startDashboardSimulation(); // Jalanin hiasan angka gerak pas login sukses
+            } else {
+                document.getElementById("errorMsg").style.display = "block";
+            }
+        }
+
+        // Hiasan: Simulasi Angka Bergerak Ghoib di Dashboard
+        function startDashboardSimulation() {
+            setInterval(() => {
+                let randomRatio = (95 + Math.random() * 4).toFixed(2);
+                document.getElementById("live-speed").innerText = randomRatio + "% SYNC";
+            }, 1500);
+        }
+
+        let currentActiveCase = 'x';
+
+        const database = {
+            x: {
+                name: "Jahseh Dwayne Onfroy (X)",
+                meta: "STATUS: SOLVED BY FORCE | JUN 18, 2018",
+                summary: "Kasus penembakan tragis di depan toko motor Deerfield Beach. Konspirasi menyebutkan X dibungkam karena ingin membongkar rahasia elit industri musik lewat album-album spiritualnya.",
+                chronoTitle: "DECRYPTED FILE: COR-X18",
+                chronoFull: "<b>15:30:</b> X tiba di Riva Motorsports, Florida.<br><b>15:55:</b> Mobil BMW i8 milik X dihadang SUV gelap berisi 4 orang.<br><b>15:58:</b> Terjadi baku hantam memperebutkan tas isi $50.000 cash. Pelaku melepas tembakan tepat di leher X. X gugur seketika.<br><br><b>ANALISIS TIM ELIT:</b> Penyelidikan resmi menyatakan perampokan biasa, namun hilangnya backup DVR CCTV server lokal tepat 5 menit sebelum eksekusi mengindikasikan operasi intelijen berskala rahasia industri."
+            },
+            '2pac': {
+                name: "Tupac Amaru Shakur (2PAC)",
+                meta: "STATUS: UNRESOLVED OVERLORD | SEP 13, 1996",
+                summary: "Ditembak setelah menonton pertandingan Mike Tyson di Las Vegas. Banyak teori menyatakan dia memalsukan kematiannya dan bersembunyi di Kuba karena diburu agen intelijen.",
+                chronoTitle: "DECRYPTED FILE: COR-2PAC96",
+                chronoFull: "<b>23:15:</b> 2Pac konvoi bersama boss Death Row Records, Suge Knight.<br><b>23:17:</b> Cadillac putih merapat di lampu merah Flamingo Road.<br><b>23:19:</b> Rentetan tembakan melubangi BMW 750iL. 4 peluru menembus dada 2Pac.<br><br><b>ANALISIS TIM ELIT:</b> Tidak ada saksi mata yang berani bicara selama dekade. File otopsi yang bocor memiliki berat badan subjek yang salah, memicu teori konspirasi global bahwa 2Pac masih hidup di luar radar perlindungan saksi."
+            },
+            biggie: {
+                name: "Christopher Wallace (Biggie)",
+                meta: "STATUS: HIGHLY CLASSIFIED | MAR 9, 1997",
+                summary: "Ditembak dari dalam mobil misterius saat berhenti di lampu merah setelah pulang pesta. Pembunuhan berdarah dingin ini diduga sebagai aksi balas dendam perang mafia rap.",
+                chronoTitle: "DECRYPTED FILE: COR-BIG97",
+                chronoFull: "<b>00:30:</b> Biggie keluar dari Petersen Automotive Museum, Los Angeles.<br><b>00:45:</b> GMC Yukon yang ia tumpangi berhenti di lampu merah merah.<br><b>00:47:</b> Chevrolet Impala hitam menembakkan peluru baja 9mm menembus organ vital Biggie.<br><br><b>ANALISIS TIM ELIT:</b> Diduga kuat melibatkan divisi hitam penegak hukum yang sengaja memicu perang hip-hop East vs West Coast demi menghentikan dominasi ekonomi independen musisi jalanan."
+            }
+        };
+
+        function switchCase(artistKey, element) {
+            currentActiveCase = artistKey;
+            const data = database[artistKey];
+            document.getElementById('artist-name').innerText = data.name;
+            document.getElementById('artist-meta').innerText = data.meta;
+            document.getElementById('artist-text').innerText = data.summary;
+            
+            const buttons = document.getElementsByClassName('tab-btn');
+            for(let i=0; i < buttons.length; i++) { buttons[i].classList.remove('active'); }
+            element.classList.add('active');
+        }
+
+        function openChronology() {
+            const data = database[currentActiveCase];
+            document.getElementById('modal-title').innerText = data.chronoTitle;
+            document.getElementById('modal-text').innerHTML = data.chronoFull;
+            document.getElementById('chronoModal').style.display = "block";
+        }
+
+        function closeChronology() { document.getElementById('chronoModal').style.display = "none"; }
+        window.onclick = function(event) {
+            let modal = document.getElementById('chronoModal');
+            if (event.target == modal) { modal.style.display = "none"; }
+        }
+    </script>
+</body>
+  </html>
+    
