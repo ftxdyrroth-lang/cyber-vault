@@ -3,153 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚠️ CORE-SYNC FLOOD ULTRA PRO MAX v18.0 ⚠️</title>
+    <title>⚠️ CORE-SYNC FLOOD MASSIVE v22.0 ⚠️</title>
     <style>
         body {
             background-color: #030508;
             color: #d0d7de;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: monospace;
             margin: 0; padding: 10px; overflow-x: hidden;
         }
 
-        /* MATRIX BG FLOODER */
         .matrix-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            font-family: monospace; font-size: 8px; color: rgba(255, 51, 51, 0.08);
+            font-size: 8px; color: rgba(255, 51, 51, 0.05);
             white-space: nowrap; pointer-events: none; z-index: -1; overflow: hidden;
             line-height: 1.2;
         }
 
-        /* GATE SCREEN */
-        #gate-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #010204; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 99999;
-        }
-        .glitch-text {
-            color: #ff3333; font-family: monospace; font-size: 18px; font-weight: bold;
-            letter-spacing: 3px; text-shadow: 0 0 15px #ff3333; text-align: center; margin-bottom: 5px;
-        }
-        .bypass-btn {
-            background: #ff3333; color: white; border: none; padding: 18px 35px;
-            font-weight: bold; font-family: monospace; border-radius: 8px; cursor: pointer;
-            box-shadow: 0 0 25px #ff3333; margin-top: 25px; letter-spacing: 1px; font-size: 14px;
-        }
-
-        /* ALARM BANNER */
         .alarm-banner {
-            background: #ff3333; color: #fff; font-family: monospace; font-size: 11px;
+            background: #ff3333; color: #fff; font-size: 10px;
             font-weight: bold; padding: 8px; margin-bottom: 12px; text-align: center;
-            letter-spacing: 1px; border-radius: 6px; animation: blinker 0.6s linear infinite;
+            border-radius: 6px; animation: blinker 0.6s linear infinite;
         }
-        @keyframes blinker { 50% { opacity: 0.1; } }
+        @keyframes blinker { 50% { opacity: 0.3; } }
 
         .header-panel {
             border: 2px dashed #ff3333; background: rgba(255, 51, 51, 0.05);
             padding: 15px; margin-bottom: 15px; text-align: center; border-radius: 8px;
         }
-        .header-panel h1 { color: #fff; margin: 0; font-size: 20px; letter-spacing: 1px; text-shadow: 0 0 10px #ff3333; }
+        .header-panel h1 { color: #fff; margin: 0; font-size: 18px; text-shadow: 0 0 10px #ff3333; }
 
         .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
         .stat-box { background: #161b22; border: 1px solid #30363d; border-left: 4px solid #ff3333; padding: 10px; border-radius: 6px; }
-        .stat-box .lbl { font-size: 9px; color: #8b949e; font-family: monospace; }
-        .stat-box .val { font-size: 12px; color: #fff; font-weight: bold; margin-top: 2px; }
+        .stat-box .lbl { font-size: 9px; color: #8b949e; }
+        .stat-box .val { font-size: 11px; color: #fff; font-weight: bold; margin-top: 2px; }
 
-        /* DOSSIER CARD BUTTONS */
         .case-card {
             background: #161b22; border: 1px solid #30363d; border-radius: 8px;
-            padding: 15px; margin-bottom: 10px; cursor: pointer; transition: 0.2s;
-            border-left: 4px solid #ff3333;
+            padding: 15px; margin-bottom: 10px; cursor: pointer;
+            border-left: 4px solid #ff3333; transition: 0.1s;
         }
         .case-card:hover { background: #21262d; border-color: #ff3333; }
-        .case-card h3 { margin: 0 0 5px 0; font-size: 14px; color: #fff; letter-spacing: 0.5px; }
-        .case-card p { margin: 0; font-size: 12px; color: #8b949e; line-height: 1.4; }
+        .case-card h3 { margin: 0 0 5px 0; font-size: 13px; color: #fff; }
+        .case-card p { margin: 0; font-size: 11px; color: #8b949e; line-height: 1.4; }
 
         /* LIVE FLOOD TERMINAL */
         .terminal-stream {
             background: #000; border: 1px solid #238636; border-radius: 8px;
-            padding: 10px; font-family: monospace; font-size: 10px; color: #39ff14;
-            height: 180px; overflow-y: scroll; line-height: 1.4; margin-top: 15px;
+            padding: 10px; font-size: 10px; color: #39ff14;
+            height: 180px; overflow-y: auto; line-height: 1.4; margin-top: 15px;
         }
 
-        /* MODAL CORESYNC */
+        /* MODAL */
         .modal-overlay { display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); }
-        .modal-card { background: #0d1117; margin: 5% auto; padding: 20px; border: 2px solid #ff3333; width: 85%; max-width: 420px; border-radius: 12px; box-shadow: 0 0 30px #ff3333; }
-        .modal-head { background: #ff3333; color: white; margin: 0 0 15px 0; font-size: 12px; padding: 8px; text-align: center; font-family: monospace; font-weight: bold; border-radius: 4px; }
-        .modal-scroll { font-size: 13px; line-height: 1.6; color: #e6edf3; max-height: 350px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px; }
-        .close-action-btn { background: #21262d; color: #ff3333; border: 1px solid #ff3333; padding: 14px; width: 100%; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .modal-card { background: #0d1117; margin: 5% auto; padding: 20px; border: 2px solid #ff3333; width: 85%; max-width: 420px; border-radius: 12px; }
+        .modal-head { background: #ff3333; color: white; margin: 0 0 15px 0; font-size: 11px; padding: 8px; text-align: center; font-weight: bold; border-radius: 4px; }
+        .modal-scroll { font-size: 12px; line-height: 1.6; color: #e6edf3; max-height: 320px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px; }
+        .close-action-btn { background: #21262d; color: #ff3333; border: 1px solid #ff3333; padding: 12px; width: 100%; font-weight: bold; border-radius: 6px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="matrix-bg" id="bg-flooder"></div>
 
-    <!-- ENTRY GATE -->
-    <div id="gate-screen">
-        <div class="glitch-text">⚠️ SYSTEM BREACH OVERLOAD ⚠️</div>
-        <div style="font-family:monospace; font-size:10px; color:#8b949e; text-align:center; margin-top: 5px;">OVERRIDING PEKALONGAN PROXY NODE...</div>
-        <button class="bypass-btn" onclick="bypassAndInject()">EXECUTE SYSTEM OVERRIDE</button>
-    </div>
-
-    <!-- MAIN SYSTEM -->
-    <div id="main-system" style="display: none; max-width: 480px; margin: 0 auto;">
-        <div class="alarm-banner">🚨 MALWARE EXTRACTOR ACTIVE: 10000+ ULTIMATE FLOODING 🚨</div>
+    <!-- MAIN SYSTEM (LANGSUNG AKTIF TANPA GATE SCREEN) -->
+    <div id="main-system" style="max-width: 480px; margin: 0 auto;">
+        <div class="alarm-banner">🚨 ANTI-CRASH FLOODER ACTIVE: MASSIVE EXTRACTION RUNNING 🚨</div>
 
         <div class="header-panel">
-            <h1>📂 CORESYNC VAULT v18.0</h1>
+            <h1>📂 CORESYNC VAULT v22.0</h1>
         </div>
 
         <div class="grid-stats">
-            <div class="stat-box"><div class="lbl">📡 AUDIO SYNTHESIZER</div><div class="val" style="color: #238636;">● WAVE-PULSE LIVE</div></div>
-            <div class="stat-box"><div class="lbl">🔥 BUFFER OSCILLATOR</div><div id="cpu-lbl" class="val" style="color: #f78166;">99.98% LOAD</div></div>
-            <div class="stat-box"><div class="lbl">💾 DATA SECTOR LOADED</div><div class="val" style="color: #238636;">10000+ UNLOCKED</div></div>
-            <div class="stat-box"><div class="lbl">🛡️ BYPASS GATEWAY</div><div class="val" style="color: #79c0ff;">OVERRIDE SUCCESS</div></div>
+            <div class="stat-box"><div class="lbl">📡 ENGINE STATUS</div><div class="val" style="color: #238636;">● FLOOD MAXIMUM</div></div>
+            <div class="stat-box"><div class="lbl">🔥 BUFFER OSCILLATOR</div><div id="cpu-lbl" class="val" style="color: #f78166;">99.98%</div></div>
+            <div class="stat-box"><div class="lbl">💾 DATA CAPACITY</div><div class="val" style="color: #238636;">15,000+ RECORDS</div></div>
+            <div class="stat-box"><div class="lbl">🔊 AUDIO TUNING</div><div class="val" style="color: #ff3333;">SUPER ULTRA OVERDRIVE</div></div>
         </div>
 
-        <!-- ==================== INDONESIA DOSSIER ==================== -->
-        <div style="font-family: monospace; font-size: 11px; color: #ff3333; font-weight: bold; margin-bottom: 8px;">[🇮🇩] INDONESIA DECLASSIFIED (POLITICAL & MILITARY):</div>
+        <!-- ==================== INDONESIA DATA ==================== -->
+        <div style="font-size: 11px; color: #ff3333; font-weight: bold; margin-bottom: 8px;">[🇮🇩] INDONESIA DECLASSIFIED (INTERNAL DOSSIER):</div>
         
-        <div class="case-card" onclick="openVault('MUNIR SAID THALIB', 'KRONOLOGI KASUS: INA-POL-MNR04', '<b>01:45 WIB:</b> Munir lepas landas menggunakan pesawat Garuda Indonesia GA-974 dari Bandara Changi Singapura menuju Amsterdam setelah melakukan transit.<br><br><b>03:00 WIB:</b> Target mulai merasakan mual hebat, muntah berkali-kali, dan mengalami diare akut setelah meminum hidangan jus jeruk yang diduga kuat telah disisipi senyawa mematikan arsenik murni.<br><br><b>05:30 WIB:</b> Seorang dokter yang kebetulan berada di penerbangan yang sama mencoba memberikan pertolongan medis darurat berupa suntikan obat penenang, namun kondisi fisik target terus menurun drastis.<br><br><b>06:10 WIB:</b> Munir dinyatakan meninggal dunia secara resmi di udara, tepatnya saat posisi pesawat berada di atas wilayah udara langit Rumania.<br><br><b>ANALISIS TEKNIS:</b> Hasil otopsi resmi dari Institut Forensik Belanda (NFI) menemukan kandungan senyawa kimia arsenik sebesar 460 miligram di dalam lambung target, melebihi dosis fatal manusia normal. Rantai konduktor utama yang melibatkan oknum petinggi badan intelijen negara menguap dari meja persidangan.')">
+        <div class="case-card" onclick="openVault('MUNIR SAID THALIB', '<b>01:45 WIB:</b> Munir lepas landas menggunakan pesawat Garuda Indonesia GA-974.<br><br><b>03:00 WIB:</b> Target merasakan mual hebat akibat senyawa kimia arsenik murni yang menyelinap ke cangkir minumannya.<br><br><b>06:10 WIB:</b> Munir dinyatakan meninggal dunia secara resmi di udara di atas langit Rumania.<br><br><b>ANALISIS:</b> Otopsi forensik menemukan dosis fatal di lambung. Dalang utama tidak pernah tersentuh hukum.')">
             <h3>MUNIR SAID THALIB [POLITICAL ASSASSINATION]</h3>
-            <p>Operasi senyap peracunan zat arsenik dosis mematikan di dalam maskapai komersial internasional. Kasus HAM terbesar.</p>
+            <p>Operasi senyap peracunan zat arsenik dosis mematikan di dalam maskapai komersial internasional.</p>
         </div>
 
-        <div class="case-card" onclick="openVault('AKTIVIS MARSINAH', 'KRONOLOGI KASUS: INA-POL-MSN93', '<b>3 Mei 1993:</b> Marsinah memimpin aksi unjuk rasa dan pemogokan massal buruh pabrik arloji PT CPS Sidoarjo untuk menuntut penyesuaian upah pokok sesuai instruksi militer daerah.<br><br><b>5 Mei 1993 (Malam):</b> Usai mendatangi Kodim untuk mempertanyakan rekan-rekannya yang ditangkap, Marsinah dihadang dan diculik secara paksa oleh sekelompok orang tak dikenal (OTK) menggunakan kendaraan roda empat tepat di depan gang tempat kosnya.<br><br><b>6-7 Mei 1993:</b> Target disekap di lokasi rahasia dan mengalami siksaan fisik luar biasa berat guna memutus gerakan serikat buruh.<br><br><b>8 Mei 1993:</b> Jasad Marsinah ditemukan dalam kondisi mengenaskan di sebuah gubuk petani di area hutan pinggiran Nganjuk Jawa Timur.<br><br><b>ANALISIS TEKNIS:</b> Hasil visum forensik membuktikan adanya pendarahan internal parah akibat hantaman benda tumpul di bagian vital bawah dan tulang panggul yang hancur. Pengadilan militer menyeret beberapa staf sipil perusahaan sebagai kambing hitam yang kemudian dibebaskan karena BAP terbukti hasil siksaan oknum.')">
+        <div class="case-card" onclick="openVault('AKTIVIS MARSINAH', '<b>3 Mei 1993:</b> Memimpin aksi mogok massal buruh pabrik arloji Sidoarjo menuntut upah adil.<br><br><b>5 Mei 1993:</b> Diculik paksa oleh sekelompok orang tak dikenal di depan tempat tinggalnya.<br><br><b>8 Mei 1993:</b> Jasad ditemukan mengenaskan di hutan Nganjuk dengan luka parah akibat siksaan berat benda tumpul.<br><br><b>ANALISIS:</b> Eksekusi terencana era Orde Baru demi membungkam pergerakan buruh nasional.')">
             <h3>AKTIVIS MARSINAH [POLITICAL MURDER]</h3>
-            <p>Aktivis buruh wanita Jawa Timur yang diculik, mengalami penyiksaan sistematis, dan dihabisi di bawah rezim Orde Baru.</p>
+            <p>Aktivis buruh wanita yang diculik dan dieksekusi secara keji di bawah rezim Orde Baru.</p>
         </div>
 
-        <div class="case-card" onclick="openVault('OPERASI PETRUS 1983', 'KRONOLOGI KASUS: INA-MIL-PTR83', '<b>22:00 WIB:</b> Pemetaan target operasi (gali, preman, residivis) diselesaikan oleh unit intelijen teritorial berdasarkan daftar hitam kode wilayah.<br><br><b>01:30 WIB:</b> Eksekutor bersenjata laras pendek bergerak senyap tanpa seragam resmi menggunakan mobil jip tertutup tanpa plat nomor polisi.<br><br><b>02:45 WIB:</b> Pintu rumah target didobrak secara paksa. Target langsung diringkus, mata ditutup kain hitam, dan tangan diikat erat ke belakang tanpa ada surat penangkapan resmi hukum.<br><br><b>04:00 WIB:</b> Terdengar rentetan dua hingga tiga kali suara letusan tembakan teredam di area perkebunan tebu atau pinggir jalan antar provinsi.<br><br><b>ANALISIS TEKNIS:</b> Pagi harinya, jasad korban sengaja ditinggalkan di tempat umum (pasar atau saluran air) dibungkus karung goni dengan luka tembak tepat di kepala atau dada. Operasi ini dikonfirmasi langsung dalam otobiografi penguasa sebagai tindakan shock therapy massal untuk menekan kriminalitas.')">
-            <h3>OPERASI PETRUS (1983-1985) [MILITARY CLEANSED]</h3>
-            <p>Operasi rahasia Penembakan Misterius skala nasional yang mengeksekusi puluhan ribu preman jalanan tanpa proses peradilan.</p>
+        <div class="case-card" onclick="openVault('OPERASI PETRUS 1983', '<b>01:30 WIB:</b> Eksekutor bergerak senyap menggunakan jip tertutup tanpa plat nomor resmi.<br><br><b>02:45 WIB:</b> Target preman/gali diringkus, mata ditutup kain hitam, tangan terikat kencang.<br><br><b>Pagi Hari:</b> Jasad korban sengaja ditinggalkan di area publik terbungkus karung goni sebagai shock therapy masyarakat.')">
+            <h3>OPERASI PETRUS (1983) [MILITARY CLEANSED]</h3>
+            <p>Penembakan misterius skala nasional yang mengeksekusi preman jalanan tanpa proses hukum peradilan.</p>
         </div>
 
-        <div class="case-card" onclick="openVault('TRAGEDI TRISAKTI 1998', 'KRONOLOGI KASUS: INA-MIL-TRK98', '<b>17:00 WIB:</b> Massa mahasiswa Universitas Trisakti yang melakukan long march damai diblokir oleh barikade aparat dan mulai bergerak mundur secara tertib ke dalam area gerbang kampus.<br><br><b>17:15 WIB:</b> Skuad keamanan mulai menembakkan gas air mata dan peluru karet dari arah jembatan layang tol untuk memecah formasi massa mahasiswa.<br><br><b>17:25 WIB:</b> Rentetan suara tembakan senjata api asli mulai terdengar menggema secara konstan dari posisi ketinggian (sniper posisi tersembunyi).<br><br><b>17:40 WIB:</b> Empat mahasiswa (Elang, Heri, Hafidin, Hendriawan) roboh bersimbah darah di dalam halaman kampus setelah diterjang peluru tajam di bagian dada dan kepala.<br><br><b>ANALISIS TEKNIS:</b> Uji balistik membuktikan bahwa proyektil logam yang menembus organ vital korban berasal dari senapan serbu militer standar jenis SS-1 milik satuan elit. Pelaku eksekutor penembak jitu lapangan tidak pernah diungkap secara transparan.')">
+        <div class="case-card" onclick="openVault('TRAGEDI TRISAKTI 1998', '<b>17:00 WIB:</b> Demonstrasi damai mahasiswa diadang barikade ketat aparat.<br><br><b>17:25 WIB:</b> Rentetan peluru tajam ditembakkan secara konstan dari posisi ketinggian jembatan layang tol.<br><br><b>17:40 WIB:</b> Empat mahasiswa gugur di halaman kampus akibat terjangan peluru tajam militer tepat di bagian vital.')">
             <h3>TRAGEDI TRISAKTI 1998 [MASS SHOOTING]</h3>
-            <p>Penembakan brutal menggunakan peluru tajam militer terhadap mahasiswa demonstran reformasi di dalam area kampus.</p>
+            <p>Penembakan brutal menggunakan peluru tajam militer terhadap mahasiswa demonstran reformasi.</p>
         </div>
 
-        <!-- ==================== GLOBAL DOSSIER ==================== -->
-        <div style="font-family: monospace; font-size: 11px; color: #ff3333; font-weight: bold; margin: 15px 0 8px 0;">[🇺🇸🇬🇧] GLOBAL DECLASSIFIED (RAP SCENE & SERIAL KILLER):</div>
+        <div class="case-card" onclick="openVault('TRAGEDI SEMANGGI 1998', '<b>14:00 WIB:</b> Gelombang protes mahasiswa menolak Sidang Istimewa diadang tank baja dan panser.<br><br><b>16:30 WIB:</b> Aparat menembakkan gas air mata secara masif disusul peluru tajam langsung ke kerumunan massa.<br><br><b>20:00 WIB:</b> Belasan mahasiswa dan masyarakat sipil tewas bersimbah darah di aspal jalan raya Semanggi.<br><br><b>ANALISIS:</b> Kekerasan bersenjata berlebih dari unit pengamanan terpusat terhadap gerakan pro-demokrasi.')">
+            <h3>TRAGEDI SEMANGGI I & II [MILITARY REPRESSION]</h3>
+            <p>Tindakan represif aparat bersenjata laras panjang yang menewaskan puluhan mahasiswa sipil.</p>
+        </div>
 
-        <div class="case-card" onclick="openVault('XXXTENTACION', 'KRONOLOGI KASUS: USA-RAP-X18', '<b>15:55 EST:</b> Mobil sport BMW i8 maut yang dikendarai Jahseh Onfroy (X) diblokir secara paksa di jalur keluar dealer motor RIVA Motorsports di Deerfield Beach, Florida oleh sebuah SUV hitam milik para komplotan penyerang.<br><br><b>15:57 EST:</b> Dua orang pria bersenjata api bertopeng keluar dari SUV hitam, menodongkan moncong laras ke arah kaca jendela X, dan menuntut penyerahan tas mewah Louis Vuitton berisi uang tunai senilai $50.000.<br><br><b>15:58 EST:</b> Setelah sempat terjadi adu fisik singkat di dalam mobil, beberapa tembakan jarak dekat dilepaskan secara brutal mengenai area leher dan rahang X. Pelaku langsung menggasak tas dan kabur dari TKP.<br><br><b>ANALISIS TEKNIS:</b> Penyelidikan forensik digital membuktikan skenario perampokan terencana lewat pelacakan sinyal GPS ponsel pelaku. Spekulasi keterlibatan rivalitas industri rap lokal tetap bergulir kencang di forum underground.')">
+        <div class="case-card" onclick="openVault('MISTERI AKSEYNA (UI)', '<b>26 Maret 2015:</b> Jasad mahasiswa Biologi UI, Akseyna Ahad Dori, ditemukan mengambang di Danau Kenanga UI.<br><br><b>Penyelidikan Awal:</b> Ditemukan tas ransel berisi batu pemberat seberat 14 kg yang diikatkan ke tubuh korban.<br><br><b>Analisis Forensik:</b> Terdapat luka lebam di kepala dan robekan di sepatu, menandakan korban diseret dalam kondisi pingsan sebelum ditenggelamkan hidup-hidup.<br><br><b>STATUS:</b> Surat wasiat terbukti palsu/rekayasa digital. Kasus mandek 11 tahun tanpa tersangka.')">
+            <h3>MISTERI AKSEYNA DORI [UNSOLVED MURDER]</h3>
+            <p>Kasus pembunuhan mahasiswa Universitas Indonesia yang disamarkan seolah-olah bunuh diri di danau.</p>
+        </div>
+
+        <div class="case-card" onclick="openVault('KOPI SIANIDA MIRNA', '<b>06 Januari 2016:</b> Wayan Mirna Salihin kolaps dan mengalami kejang hebat usai meminum es kopi Vietnam di Kafe Olivier Jakarta.<br><br><b>17:00 WIB:</b> Korban dinyatakan tewas akibat kerusakan lambung masif akibat korosi zat kimia.<br><br><b>Uji Forensik:</b> Ditemukan kandungan zat kimia mematikan Natrium Sianida (NaCN) di dalam gelas kopi korban.<br><br><b>STATUS:</b> Sahabat korban, Jessica Wongso, dijatuhi hukuman 20 tahun penjara dalam persidangan penuh perdebatan ahli.')">
+            <h3>KOPI SIANIDA MIRNA [HIGH-PROFILE CYANIDE]</h3>
+            <p>Kasus pembunuhan berencana menggunakan racun sianida di dalam es kopi Vietnam yang menghebohkan publik.</p>
+        </div>
+
+        <!-- ==================== GLOBAL DATA ==================== -->
+        <div style="font-size: 11px; color: #ff3333; font-weight: bold; margin: 15px 0 8px 0;">[🇺🇸🇬🇧] GLOBAL DECLASSIFIED (INTERNATIONAL ARTIFACT):</div>
+
+        <div class="case-card" onclick="openVault('XXXTENTACION', '<b>15:55 EST:</b> Mobil sport BMW i8 milik X dicegat paksa oleh SUV hitam di gerbang keluar dealer.<br><br><b>15:57 EST:</b> Pelaku bertopeng menodongkan senjata api dan merampas tas Louis Vuitton berisi uang tunai $50.000.<br><br><b>15:58 EST:</b> Tembakan jarak dekat dilepaskan mengenai leher X hingga tewas di tempat.')">
             <h3>XXXTENTACION [RAP SCENE MURDER]</h3>
-            <p>Rapper muda ikonik Amerika yang dicegat, dirampok, dan dieksekusi mati dengan senjata api di dalam mobilnya di Florida.</p>
+            <p>Rapper ikonik Amerika yang dihadang, dirampok, dan dieksekusi mati dengan senjata api di Florida.</p>
         </div>
 
-        <div class="case-card" onclick="openVault('LIL PEEP', 'KRONOLOGI KASUS: USA-RAP-LPP17', '<b>22:00 MST:</b> Gustav Åhr (Lil Peep) mengonsumsi beberapa butir pil penenang jenis Xanax yang diberikan oleh oknum lingkaran narkoba jalanan saat bus turnya transit di Tucson, Arizona.<br><br><b>22:45 MST:</b> Peep mulai mengalami depresi pernapasan berat dan tertidur lelap di sofa bus tur sebelum jadwal pertunjukan panggung dimulai.<br><br><b>23:30 MST:</b> Anggota manajemen masuk ke dalam bus dan merekam video kondisi Peep yang dikira sedang pingsan akibat mabuk biasa (sebagai bahan lelucon), tanpa menyadari bahwa sistem pernapasan target sudah mati total.<br><br><b>ANALISIS TEKNIS:</b> Hasil laporan otopsi toksikologi forensik menyatakan penyebab kematian akibat overdosis tidak sengaja dari kontaminasi zat Fentanyl (opioid sintetis militer berkekuatan 50x lipat heroin) yang dicampurkan secara ilegal ke dalam obat palsu buatan pasar gelap.')">
+        <div class="case-card" onclick="openVault('LIL PEEP', '<b>22:00 MST:</b> Lil Peep mengonsumsi pil penenang Xanax yang didapat dari pasar gelap obat palsu.<br><br><b>22:45 MST:</b> Mengalami kegagalan sistem pernapasan akut di dalam bus tur antarkota.<br><br><b>ANALISIS:</b> Pil tersebut terbukti dipalsukan dengan campuran Fentanyl murni dosis fatal.')">
             <h3>LIL PEEP [DRUG CONTAMINATION]</h3>
-            <p>Kematian tragis pelopor emo-rap di dalam bus tur akibat jebakan pil palsu yang terkontaminasi opioid sintetis militer.</p>
+            <p>Kematian tragis pelopor emo-rap akibat jebakan distribusi pil palsu yang terkontaminasi Fentanyl.</p>
         </div>
 
-        <div class="case-card" onclick="openVault('JACK THE RIPPER', 'KRONOLOGI KASUS: UK-SER-JTR1888', '<b>01:30 GMT:</b> Korban terakhir (wanita tuna susila) terlihat masuk bersama seorang pria misterius mengenakan jubah hitam panjang dan topi tinggi ke dalam gang sempit yang gelap membisu di Whitechapel, London Timur.<br><br><b>03:15 GMT:</b> Petugas patroli malam kepolisian menemukan jasad korban tergeletak di atas tumpukan batu dalam kondisi leher tergorok sangat dalam hingga hampir putus.<br><br><b>ANALISIS TEKNIS:</b> Seluruh organ bagian dalam korban (seperti rahim dan ginjal) dikeluarkan secara sistematis di kegelapan malam tanpa merusak jaringan otot luar utama. Presisi pemotongan anatomi ini membuktikan sang pembunuh memiliki keahlian setingkat dokter bedah profesional atau tukang jagal hewan terlatih.')">
+        <div class="case-card" onclick="openVault('JACK THE RIPPER', '<b>01:30 GMT:</b> Korban masuk ke gang gelap pekat di kawasan Whitechapel, London Timur.<br><br><b>03:15 GMT:</b> Jasad korban ditemukan dalam kondisi tergorok dalam dengan mutilasi bagian organ internal yang sangat presisi.<br><br><b>ANALISIS:</b> Teknik bedah membuktikan pelaku merupakan pakar anatomi berpengalaman tinggi.')">
             <h3>JACK THE RIPPER [SERIAL KILLER]</h3>
-            <p>Misteri pembunuh berantai tertua di Inggris tahun 1888 yang memutilasi korban secara anatomis di kegelapan total.</p>
+            <p>Misteri pembunuh berantai legendaris Inggris tahun 1888 yang mengeksekusi korban secara anatomis.</p>
         </div>
 
-        <div class="case-card" onclick="openVault('THE ZODIAC KILLER', 'KRONOLOGI KASUS: USA-SER-ZOD69', '<b>23:15 PST:</b> Sepasang kekasih muda yang sedang parkir di area sepi California Utara ditembak secara bertubi-tubi dari luar jendela mobil oleh sosok pria tak dikenal menggunakan senter berdaya tinggi.<br><br><b>00:40 PST:</b> Pelaku melakukan panggilan telepon misterius ke markas kepolisian setempat lewat telepon umum, melaporkan aksi pembunuhannya sendiri dengan nada suara mekanis datar yang dingin.<br><br><b>ANALISIS TEKNIS:</b> Pelaku mengirimkan total 4 surat sandi (kriptogram) rumit berisi ejekan ke media cetak San Francisco. Kode sandi berkode "Z340" baru bisa dipecahkan 51 tahun kemudian menggunakan superkomputer, namun identitas asli sang penjagal tetap menjadi misteri abadi.')">
+        <div class="case-card" onclick="openVault('THE ZODIAC KILLER', '<b>23:15 PST:</b> Target sepasang kekasih dieksekusi dari jarak dekat di dalam mobil area California.<br><br><b>Sandi Kriptogram:</b> Mengirim surat sandi berkode rumit "Z340" ke media berita utama.<br><br><b>STATUS:</b> Sandi baru berhasil dipecahkan tim komputer dunia 51 tahun kemudian, identitas asli pelaku terkubur abadi.')">
             <h3>THE ZODIAC KILLER [SERIAL KILLER]</h3>
-            <p>Pembunuh berantai psikopat Amerika yang meneror polisi lewat kiriman teka-teki sandi kriptogram tersulit di dunia.</p>
+            <p>Pembunuh berantai psikopat yang meneror aparat penegak hukum lewat sandi teka-teki enkripsi kriptogram.</p>
+        </div>
+
+        <div class="case-card" onclick="openVault('PEMBUNUHAN JFK', '<b>12:30 CST:</b> Presiden AS John F. Kennedy ditembak saat konvoi mobil terbuka di Dealey Plaza, Dallas.<br><br><b>Tembakan Maut:</b> Peluru tajam kaliber militer menembus punggung dan menghancurkan tengkorak bagian kanan presiden.<br><br><b>Teori Konspirasi:</b> Lee Harvey Oswald ditangkap sebagai pelaku tunggal, namun lintasan "Peluru Ajaib" memicu dugaan kuat keterlibatan penembak jitu kedua dari dinas rahasia.')">
+            <h3>JOHN F. KENNEDY [ASSASSINATION OF A PRESIDENT]</h3>
+            <p>Pembunuhan kepala negara Amerika Serikat tahun 1963 yang penuh dengan konspirasi intelijen tingkat tinggi.</p>
+        </div>
+
+        <div class="case-card" onclick="openVault('TUPAC SHAKUR (2PAC)', '<b>23:15 PST:</b> Mobil BMW yang membawa legenda rap Tupac Shakur ditembak bertubi-tubi di lampu merah Las Vegas.<br><br><b>Eksekusi:</b> Sebuah sedan Cadillac putih merapat ke sisi kanan, pelaku melepaskan 14 tembakan jarak dekat.<br><br><b>ANALISIS:</b> Diduga kuat merupakan puncak dari perang rap Pantai Timur vs Pantai Barat (East Coast vs West Coast) yang melibatkan geng jalanan Bloods & Crips.')">
+            <h3>TUPAC SHAKUR [HIP-HOP WARFARE]</h3>
+            <p>Penembakan misterius drive-by yang merenggut nyawa salah satu musisi rap terbesar dunia di Las Vegas.</p>
+        </div>
+
+        <div class="case-card" onclick="openVault('MARILYN MONROE', '<b>04:25 PDT:</b> Ikon Hollywood Marilyn Monroe ditemukan tewas tanpa busana di tempat tidurnya kawasan Brentwood, Los Angeles.<br><br><b>Penyebab Resmi:</b> Overdosis akut zat barbiturat (obat penenang) yang dinyatakan sebagai tindakan bunuh diri.<br><br><b>Dugaan Sabotase:</b> Hilangnya catatan buku harian korban dan hubungan gelapnya dengan keluarga politisi top memicu spekulasi operasi senyap CIA.')">
+            <h3>MARILYN MONROE [HOLLYWOOD REVELATION]</h3>
+            <p>Misteri kematian tragis simbol budaya pop dunia yang diduga kuat berkaitan dengan rahasia elit politik global.</p>
         </div>
 
         <!-- LIVE TERMINAL STREAM -->
@@ -161,82 +165,136 @@
     <!-- MODAL WINDOW -->
     <div id="vaultModal" class="modal-overlay">
         <div class="modal-card">
-            <div class="modal-head" id="v-title">CRIMINAL RECORD ARTIFACT</div>
+            <div class="modal-head" id="v-title">CRIMINAL RECORD</div>
             <div class="modal-scroll" id="v-body"></div>
-            <button class="close-action-btn" onclick="closeVault()">❌ TERMINATE DOSSIER VIEW</button>
+            <button class="close-action-btn" onclick="closeVault()">❌ CLOSE DOSSIER</button>
         </div>
     </div>
 
     <script>
         let audioCtx = null;
-        function playHackerSound() {
+        
+        function makeDistortionCurve(amount) {
+            let k = typeof amount === 'number' ? amount : 50;
+            let n_samples = 44100;
+            let curve = new Float32Array(n_samples);
+            let deg = Math.PI / 180;
+            for (let i = 0 ; i < n_samples; ++i ) {
+                let x = (i * 2) / n_samples - 1;
+                curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+            }
+            return curve;
+        };
+
+        function startHackerAudio() {
             try {
                 if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
                 setInterval(() => {
-                    let osc = audioCtx.createOscillator();
+                    let oscSub1 = audioCtx.createOscillator();
+                    let oscSub2 = audioCtx.createOscillator();
+                    let oscSaw = audioCtx.createOscillator();
                     let gainNode = audioCtx.createGain();
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(55 + Math.random() * 35, audioCtx.currentTime); 
-                    gainNode.gain.setValueAtTime(0.02, audioCtx.currentTime); 
-                    osc.connect(gainNode); gainNode.connect(audioCtx.destination);
-                    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-                }, 350);
+                    let filter = audioCtx.createBiquadFilter();
+                    let waveshaper = audioCtx.createWaveShaper();
+                    
+                    oscSub1.type = 'sine';
+                    oscSub1.frequency.setValueAtTime(45, audioCtx.currentTime); 
+                    
+                    oscSub2.type = 'sine';
+                    oscSub2.frequency.setValueAtTime(52, audioCtx.currentTime);
+
+                    oscSaw.type = 'sawtooth';
+                    oscSaw.frequency.setValueAtTime(58, audioCtx.currentTime);
+                    
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(180, audioCtx.currentTime);
+                    
+                    waveshaper.curve = makeDistortionCurve(150); // Distorsi dinaikin biar makin pecah kenceng
+                    waveshaper.oversample = '4x';
+
+                    // GAIN LEVEL ULTRA PRO MAX DI ANGKAH EKSTREM 15.0
+                    gainNode.gain.setValueAtTime(0.0, audioCtx.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(15.0, audioCtx.currentTime + 0.04); 
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.48); 
+                    
+                    oscSub1.connect(waveshaper);
+                    oscSub2.connect(waveshaper);
+                    oscSaw.connect(waveshaper);
+                    
+                    waveshaper.connect(filter);
+                    filter.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscSub1.start();
+                    oscSub2.start();
+                    oscSaw.start();
+                    
+                    oscSub1.stop(audioCtx.currentTime + 0.5);
+                    oscSub2.stop(audioCtx.currentTime + 0.5);
+                    oscSaw.stop(audioCtx.currentTime + 0.5);
+                }, 600);
             } catch(e) {}
         }
 
-        function playClickBeep() {
-            if(audioCtx) {
-                let osc = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
-                gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                osc.connect(gainNode); gainNode.connect(audioCtx.destination);
-                osc.start(); osc.stop(audioCtx.currentTime + 0.05);
-            }
-        }
-
-        function bypassAndInject() {
-            document.getElementById('gate-screen').style.display = 'none';
-            document.getElementById('main-system').style.display = 'block';
-            playHackerSound();
-
+        // AUTO-INJECT INSTANT KETIKA WINDOW TERBUKA
+        window.onload = function() {
+            // Jalankan UI Loop internal tanpa nunggu tombol
             setInterval(() => {
                 let load = (99.40 + Math.random() * 0.58).toFixed(2);
-                document.getElementById("cpu-lbl").innerText = load + "% OVERLOAD";
-            }, 250);
+                document.getElementById("cpu-lbl").innerText = load + "%";
+            }, 300);
 
             startTerminalFlood();
-            startBackgroundMatrixFlooder();
-        }
 
-        function openVault(name, meta, chrono) {
-            playClickBeep();
-            document.getElementById('v-title').innerText = name + " // " + meta;
+            // Pancing audio jalan via event listener layar (karena restriksi browser modern wajib ada interaksi pertama user)
+            document.body.addEventListener('click', () => {
+                startHackerAudio();
+            }, { once: true });
+            document.body.addEventListener('touchstart', () => {
+                startHackerAudio();
+            }, { once: true });
+            
+            // Coba paksa jalan langsung
+            startHackerAudio();
+        };
+
+        function openVault(name, chrono) {
+            document.getElementById('v-title').innerText = name;
             document.getElementById('v-body').innerHTML = chrono;
             document.getElementById('vaultModal').style.display = "block";
         }
 
         function closeVault() {
-            playClickBeep();
             document.getElementById('vaultModal').style.display = "none";
         }
 
-        // MONSTER PACKET BOMBING MACHINE (TEMBUS 10.500+ LINES DATA SPEED 5ms)
         function startTerminalFlood() {
-            let ticker = document.getElementById("terminal-ticker");
-            let box = document.getElementById("term-box");
+            const ticker = document.getElementById("terminal-ticker");
+            const box = document.getElementById("term-box");
             let count = 0;
-            
+            let logBuffer = [];
+
             setInterval(() => {
                 count++;
                 let hex = Math.random().toString(16).substring(2, 10).toUpperCase();
                 let sector = Math.floor(Math.random() * 99999);
-                ticker.innerHTML += `[CORE-FLOOD-NODE-${count}] INJECTING_OVERLOAD_PACKET_0x${hex} -> SECTOR_${sector} -> STATUS: 10K_OVERFLOW_STABLE<br>`;
+                
+                logBuffer.push(`[CORE-FLOOD-NODE-${count}] INJECTING_OVERLOAD_PACKET_0x${hex} -> SECTOR_${sector} -> STATUS: 15K_OVERFLOW_STABLE`);
+                
+                if (logBuffer.length > 20) {
+                    logBuffer.shift();
+                }
+
+                ticker.textContent = logBuffer.join("\n");
                 box.scrollTop = box.scrollHeight;
                 
-                // LIMIT SEKARANG DIJEBOL SAMPAI 10.500 BARIS BARU DI-CLEAR SCREEN!
-                if(count > 10500) { 
-                    ticker.innerHTML = "💥 [MAXIMUM OVERLOAD DETECTED] Stack frame buffer full! Flushing 10,000+ logs out... RE-INJECTING SECTORS NOW!<br>"; 
+                if(count > 15000) { 
                     count = 0; 
                 }
-            },
+            }, 8); 
+        }
+    </script>
+</body>
+                </html>
+            
